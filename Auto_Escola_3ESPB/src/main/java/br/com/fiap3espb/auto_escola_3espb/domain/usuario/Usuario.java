@@ -40,6 +40,15 @@ public class Usuario implements UserDetails {
         this.senha = novaSenhaCriptografada;
     }
 
+    public void atualizarInformacoes(DadosAtualizacaoUsuario dados) {
+        if (dados.login() != null) {
+            this.login = dados.login();
+        }
+        if (dados.perfil() != null) {
+            this.perfil = dados.perfil();
+        }
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
 

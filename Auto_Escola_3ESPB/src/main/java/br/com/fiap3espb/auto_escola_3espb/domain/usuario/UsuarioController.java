@@ -52,4 +52,12 @@ public class UsuarioController {
         service.alterarSenha(dados);
         return ResponseEntity.ok().build();
     }
+
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity atualizarPerfil(@PathVariable Long id, @RequestBody @Valid DadosAtualizacaoUsuario dados) {
+        var usuario = repository.getReferenceById(id);
+        usuario.atualizarInformacoes(dados);
+        return ResponseEntity.ok(new DadosDetalhamentoUsuario(usuario));
+    }
 }
