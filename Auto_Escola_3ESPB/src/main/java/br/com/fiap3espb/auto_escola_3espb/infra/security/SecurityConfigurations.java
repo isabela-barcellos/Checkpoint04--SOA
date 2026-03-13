@@ -28,7 +28,17 @@ public class SecurityConfigurations {
                         -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/login").permitAll()
-                        /*.requestMatchers(HttpMethod.POST, "/instrutores").hasAnyRole("ADMIN", "USER")*/
+                        // Liberação do Swagger conforme o roteiro
+                        .requestMatchers("/v3/api-docs/**", "/swagger-ui.html", "/swagger-ui/**").permitAll()
+
+                        // Restrição para Administradores [cite: 247]
+                        .requestMatchers(HttpMethod.POST, "/usuarios").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/usuarios").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/usuarios/**").hasRole("ADMIN")
+
+                        // Permissão para alteração de senha
+                        .requestMatchers(HttpMethod.PUT, "/usuarios/alterar-senha").authenticated()
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
@@ -42,6 +52,7 @@ public class SecurityConfigurations {
 
     @Bean
     public PasswordEncoder passwordEncoder() {
+
         return new BCryptPasswordEncoder();
     }
 }

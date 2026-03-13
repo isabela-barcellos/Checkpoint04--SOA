@@ -25,11 +25,29 @@ public class Usuario implements UserDetails {
     private Long id;
     private String login;
     private String senha;
-    private Role perfil;
+
+    @Enumerated(EnumType.STRING)
+    private Role perfil; // [cite: 37, 138]
+
+    // Novo construtor para atender o Passo 3 e o roteiro
+    public Usuario(DadosCadastroUsuario dados, String senhaCriptografada) {
+        this.login = dados.login();
+        this.senha = senhaCriptografada;
+        this.perfil = dados.perfil();
+    }
+
+    // Método para permitir a alteração de senha
+    public void atualizarSenha(String novaSenhaCriptografada) {
+        this.senha = novaSenhaCriptografada;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority("ROLE_" + perfil));
+        // Se o perfil for ADMIN, ele ganha as duas roles para garantir acesso total
+        if (this.perfil == Role.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        }
+        return List.of(new SimpleGrantedAuthority("ROLE_USER"));
     }
 
     @Override
