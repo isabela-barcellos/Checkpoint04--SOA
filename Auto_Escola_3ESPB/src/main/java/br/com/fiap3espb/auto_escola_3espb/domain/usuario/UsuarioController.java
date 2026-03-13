@@ -16,7 +16,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping("/usuarios")
-@SecurityRequirement(name = "bearer-key") // [cite: 233]
+@SecurityRequirement(name = "bearer-key")
 public class UsuarioController {
 
     @Autowired
@@ -25,31 +25,31 @@ public class UsuarioController {
     @Autowired
     private UsuarioRepository repository;
 
-    @PostMapping // [cite: 13]
+    @PostMapping
     @Transactional
     public ResponseEntity cadastrar(@RequestBody @Valid DadosCadastroUsuario dados, UriComponentsBuilder uriBuilder) {
         service.cadastrar(dados);
-        var uri = uriBuilder.path("/usuarios/{id}").build().toUri(); // [cite: 124]
-        return ResponseEntity.created(uri).build(); // [cite: 121]
+        var uri = uriBuilder.path("/usuarios/{id}").build().toUri();
+        return ResponseEntity.created(uri).build();
     }
 
-    @GetMapping // [cite: 14]
+    @GetMapping
     public ResponseEntity<Page<DadosDetalhamentoUsuario>> listar(@PageableDefault(size = 10, sort = {"login"}) Pageable paginacao) {
-        var page = repository.findAll(paginacao).map(DadosDetalhamentoUsuario::new); // [cite: 86, 120]
+        var page = repository.findAll(paginacao).map(DadosDetalhamentoUsuario::new);
         return ResponseEntity.ok(page);
     }
 
-    @DeleteMapping("/{id}") // [cite: 16]
+    @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity excluir(@PathVariable Long id) {
         repository.deleteById(id);
-        return ResponseEntity.noContent().build(); // [cite: 116]
+        return ResponseEntity.noContent().build();
     }
 
-    @PutMapping("/alterar-senha") //
+    @PutMapping("/senha")
     @Transactional
-    public ResponseEntity alterarSenha(@RequestBody @Valid DadosAlteracaoSenha dados, @AuthenticationPrincipal Usuario logado) {
-        service.alterarSenha(dados, logado);
-        return ResponseEntity.ok().build(); // [cite: 117]
+    public ResponseEntity alterarSenha(@RequestBody @Valid DadosAlteracaoSenha dados) {
+        service.alterarSenha(dados);
+        return ResponseEntity.ok().build();
     }
 }

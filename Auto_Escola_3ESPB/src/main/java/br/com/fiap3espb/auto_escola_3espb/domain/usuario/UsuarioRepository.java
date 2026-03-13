@@ -6,6 +6,5 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
-     // O Spring Security utiliza UserDetails para o processo de autenticação
      UserDetails findByLogin(String login);
 }

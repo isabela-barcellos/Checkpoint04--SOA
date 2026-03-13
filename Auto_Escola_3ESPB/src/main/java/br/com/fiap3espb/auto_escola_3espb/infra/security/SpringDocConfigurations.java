@@ -14,7 +14,7 @@ public class SpringDocConfigurations {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
                 .components(new Components()
-                        .addSecuritySchemes("bearer-key", // Nome usado no @SecurityRequirement
+                        .addSecuritySchemes("bearer-key",
                                 new SecurityScheme()
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")

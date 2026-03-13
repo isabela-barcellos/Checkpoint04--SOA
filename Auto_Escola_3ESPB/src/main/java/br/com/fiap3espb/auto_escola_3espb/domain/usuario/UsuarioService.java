@@ -26,11 +26,11 @@ public class UsuarioService {
     }
 
     @Transactional
-    public void alterarSenha(DadosAlteracaoSenha dados, Usuario usuarioLogado) {
+    public void alterarSenha(DadosAlteracaoSenha dados) {
+        Usuario usuarioLogado = repository.getReferenceById(dados.id());
         // Encripta a nova senha e atualiza o objeto do usuário logado
         String novaSenhaCriptografada = passwordEncoder.encode(dados.novaSenha());
         usuarioLogado.atualizarSenha(novaSenhaCriptografada);
-
         repository.save(usuarioLogado);
     }
 }
