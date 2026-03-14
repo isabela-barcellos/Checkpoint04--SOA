@@ -4,8 +4,8 @@ Repositório dedicado ao desenvolvimento do checkpoint 04 da matéria de SOA e W
 ### Checkpoint 4 - 3ºESPB
 
 ## Integrantes
-# RM 553515 - André de Sousa Neves
-# RM 553633 - Caio Sato Tominaga
-# RM 552943 - Eduardo Brites Coutinho
-# RM 553746 - Isabela Barcellos Freire
-# RM 553892 - Thaís Gonçalves Leoncio
+#### RM 553515 - André de Sousa Neves
+#### RM 553633 - Caio Sato Tominaga
+#### RM 552943 - Eduardo Brites Coutinho
+#### RM 553746 - Isabela Barcellos Freire
+#### RM 553892 - Thaís Gonçalves Leoncio
